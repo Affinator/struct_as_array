@@ -3,7 +3,7 @@ Library works only with named structs whose fields have the same type.
                                                                                             
 # Examples                                                                                  
 Basic usage:                                                                                
-```                                                                                         
+```rust
 use struct_as_array::*;                                                                     
                                                                                             
 #[derive(AsArray)]                                                                          
@@ -19,12 +19,17 @@ let t = TestStruct {
     t3: 2,                                                                                  
 };                                                                                          
                                                                                             
-assert_eq!(t.as_array(), [&0, &1, &2]);                                                     
+// Represent as array of reference
+assert_eq!(t.as_array(), [&0, &1, &2]);
+
+// Convert struct to array
+assert_eq!(t.to_array(), [0, 1, 2]);
+
 ```                                                                                         
                                                                                             
 Using as an iterator:                                                                       
                                                                                             
-```                                                                                         
+```rust                                                                                         
 use struct_as_array::*;                                                                     
                                                                                             
 #[derive(AsArray)]                                                                          
