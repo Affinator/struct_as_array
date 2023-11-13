@@ -9,7 +9,7 @@ keywords = ["derive", "struct", "array", "iterator"]
 authors = ["Nikita <nikitamuraviev10@yandex.ru>"]
 description = "A Rust library that allows you to represent the structure as an array"
 homepage = "https://github.com/Nikitamuraviev10/struct_as_array.git"
-documentation = "https://github.com/Nikitamuraviev10/struct_as_array.git"
+documentation = "https://docs.rs/struct_as_array"
 readme = "README.md"
 
 [lib]
