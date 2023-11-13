@@ -20,7 +20,11 @@
 //!     t3: 2,
 //! };
 //!
+//! // Represent as array of reference
 //! assert_eq!(t.as_array(), [&0, &1, &2]);
+//!
+//! // Convert struct to array
+//! assert_eq!(t.to_array(), [0, 1, 2]);
 //! ```
 //!
 //! Using as an iterator:
@@ -94,17 +98,27 @@ fn struct_as_array(ast: syn::MacroInput) -> quote::Tokens {
                 quote!(#f_name)
             });
 
-            let prefixed_fields = field_names.map(|name| quote! { &self.#name });
+            let prefixed_fields_ref = field_names.clone().map(|name| quote! { &self.#name });
+            let prefixed_fields = field_names.map(|name| quote! { #name });
+            let prefixed_fields_clone = prefixed_fields.clone();
             let n = prefixed_fields.len();
-            let doc_comment = format!("Represent {} as array.", name);
+            let doc_comment_ref = format!("Represent {} as array.", name);
+            let doc_comment = format!("Convert {} to array.", name);
 
             quote! {
                 impl #name {
 
-                    #[doc = #doc_comment]
+                    #[doc = #doc_comment_ref]
                     fn as_array(&self) -> [&#ty_ref; #n] {
-                        [#(prefixed_fields),*]
+                        [#(prefixed_fields_ref),*]
                     }
+
+                    #[doc = #doc_comment]
+                    fn to_array(self) -> [#ty_ref; #n] {
+                        let #name {#(prefixed_fields),*} = self;
+                        [#(prefixed_fields_clone),*]
+                    }
+
                 }
             }
         }
