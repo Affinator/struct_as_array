@@ -1,20 +1,21 @@
 [package]
-name = "struct_as_array"
-version = "0.2.0"
-edition = "2021"
+name = "struct_as_array2"
+version = "0.3.0"
+edition = "2024"
 license = "MIT"
-repository = "https://github.com/Nikitamuraviev10/struct_as_array.git"
+repository = "https://github.com/Affinator/struct_as_array.git"
 categories = ["no-std", "proc-macro"]
 keywords = ["derive", "struct", "array", "iterator"]
-authors = ["Nikita <nikitamuraviev10@yandex.ru>"]
-description = "A Rust library that allows you to represent the structure as an array"
-homepage = "https://github.com/Nikitamuraviev10/struct_as_array.git"
-documentation = "https://docs.rs/struct_as_array"
+authors = ["Affinator <hendrik@decke.online>"]
+description = "A Rust library that allows you to represent the structure as an array. Ported from https://github.com/Nikitamuraviev10/struct_as_array.git to proc_macro2, syn 2.0 and quote 1.0"
+homepage = "https://github.com/Affinator/struct_as_array.git"
+documentation = "https://docs.rs/struct_as_array2"
 readme = "README.md"
 
 [lib]
 proc-macro = true
 
 [dependencies]
-syn = "0.8"
-quote = "0.2"
+proc-macro2 = "1.0"
+syn = {version = "2.0", features = ["extra-traits"]}
+quote = "1.0"

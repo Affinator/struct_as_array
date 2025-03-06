@@ -49,32 +49,26 @@
 //!     println!("{}", i);
 //! }
 //! ```
-extern crate proc_macro;
+extern crate proc_macro2;
 extern crate syn;
 #[macro_use]
 extern crate quote;
 
-use proc_macro::TokenStream;
+use syn::DeriveInput;
 
 #[proc_macro_derive(AsArray)]
-pub fn derive(input: TokenStream) -> TokenStream {
-    let input: String = input.to_string();
+pub fn as_array(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    let ast = syn::parse_macro_input!(input as DeriveInput);
 
-    let ast = syn::parse_macro_input(&input).expect("Couldn't parse item");
-
-    let result = struct_as_array(ast);
-
-    result
-        .to_string()
-        .parse()
-        .expect("couldn't parse string to tokens")
+    proc_macro::TokenStream::from(struct_as_array(ast))
 }
 
-fn struct_as_array(ast: syn::MacroInput) -> quote::Tokens {
+fn struct_as_array(ast: syn::DeriveInput) -> proc_macro2::TokenStream {
     let name = &ast.ident;
 
-    match ast.body {
-        syn::Body::Struct(syn::VariantData::Struct(ref fields)) => {
+    match ast.data {
+        syn::Data::Struct(data_struct) => {
+            let fields = &data_struct.fields;
             let mut types = Vec::new();
             for field in fields {
                 let ty = &field.ty;
@@ -110,13 +104,13 @@ fn struct_as_array(ast: syn::MacroInput) -> quote::Tokens {
 
                     #[doc = #doc_comment_ref]
                     fn as_array(&self) -> [&#ty_ref; #n] {
-                        [#(prefixed_fields_ref),*]
+                        [#(#prefixed_fields_ref),*]
                     }
 
                     #[doc = #doc_comment]
                     fn to_array(self) -> [#ty_ref; #n] {
-                        let #name {#(prefixed_fields),*} = self;
-                        [#(prefixed_fields_clone),*]
+                        let #name {#(#prefixed_fields),*} = self;
+                        [#(#prefixed_fields_clone),*]
                     }
 
                 }
