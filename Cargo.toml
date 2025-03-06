@@ -11,6 +11,10 @@ description = "A Rust library that allows you to represent the structure as an a
 homepage = "https://github.com/Affinator/struct_as_array.git"
 documentation = "https://docs.rs/struct_as_array2"
 readme = "README.md"
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+]
 
 [lib]
 proc-macro = true
