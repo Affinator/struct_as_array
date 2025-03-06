@@ -4,7 +4,6 @@ version = "0.3.0"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/Affinator/struct_as_array.git"
-categories = ["no-std", "proc-macro"]
 keywords = ["derive", "struct", "array", "iterator"]
 authors = ["Affinator <hendrik@decke.online>"]
 description = "A Rust library that allows you to represent the structure as an array. Ported from https://github.com/Nikitamuraviev10/struct_as_array.git to proc_macro2, syn 2.0 and quote 1.0"
