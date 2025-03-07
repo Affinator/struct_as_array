@@ -4,7 +4,7 @@ Library works only with named structs whose fields have the same type.
 # Examples                                                                                  
 Basic usage:                                                                                
 ```rust
-use struct_as_array::*;                                                                     
+use struct_as_array2::*;                                                                     
                                                                                             
 #[derive(AsArray)]                                                                          
 struct TestStruct {                                                                         
@@ -30,7 +30,7 @@ assert_eq!(t.to_array(), [0, 1, 2]);
 Using as an iterator:                                                                       
                                                                                             
 ```rust                                                                                         
-use struct_as_array::*;                                                                     
+use struct_as_array2::*;                                                                     
                                                                                             
 #[derive(AsArray)]                                                                          
 struct TestStruct {                                                                         
